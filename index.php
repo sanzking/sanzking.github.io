@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SanzkingMY</title>
+    <title>Document</title>
     <!--CSS only-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
@@ -66,7 +66,7 @@
                     			<td class="bg-secondary text-light text-center">Perguruan tinggi</td><td class="bg-secondary text-light text-center">STIE MIFTAHUL HUDA SUBANG</td>
                     		</tr>
                     		<tr>
-                    			<td class="bg-secondary text-light text-center">Hobi</td><td class="bg-secondary text-light text-center">Rebahan.</td>
+                    			<td class="bg-secondary text-light text-center">Hobi</td><td class="bg-secondary text-light text-center">Rebahan sebetulnya :v</td>
                     		</tr>
                     		<tr>
                     			<td class="bg-secondary text-light text-center">Drama/Film favorit</td><td class="bg-secondary text-light text-center"><b>Vagabond for Drama</b> & <b>Avanger for Film</b></td>
@@ -97,22 +97,51 @@
             <div class="row align-items-center d-flex justify-content-center">
                 <div class="col-md-4">
                     <div class="card mb-3">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvnKvvfk9-LNZakhSWSK5JR5JaEoVwxlOQQA&usqp=CAU" class="card-img-top" alt="Project One">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg1ywQKwErnfP_Pj1cjutWJ-OlBUR8rGjU5A&usqp=CAU" class="card-img-top" alt="Project One">
                         <div class="card-body">
-                          <h5 class="card-title">Validate NIM Dikti</h5>
-                          <input type="text" placeholder="Masukan NIM/NPM disini" class="form-control mb-3">
-                          <input type="button" onclick="alert('Fitur ini masih terkunci!');" class="btn btn-primary" value='Check NIM/NPM!'>
+                          <h5 class="card-title">TikTok Downloader</h5>
+                          <form action="" method="post">
+                          	<input type="text" name="ttlink" placeholder="Masukan Url Video disini" class="form-control mb-3">
+                        	  <input type="submit" name="ttsub" class="btn btn-danger" value='Download'>
+                          </form>
+                          <?php
+                          	if(isset($_POST["ttsub"])){
+                          		if(empty($_POST["ttlink"])){
+                          ?>
+                          <script>alert("Url video harus diisi!");</script>
+                          <?php
+                          		}else{
+                          			$ttlink = $_POST["ttlink"];
+                          			$ttget = file_get_contents("https://mirip-lolhuman.herokuapp.com/docs/download/tiktok?url=$ttlink&apikey=Alphabot");
+                          			$ttdat = json_decode($ttget, true);
+                          			$ttmsg = $ytdat["result"]["message"];
+                          			$ttnowm = $ytdat["result"]["nowm"];
+                          			$ttwm = $ytdat["result"]["wm"];
+                          			$ttaudio = $ytdat["result"]["audio"];
+                          ?>
+                          <table class='table table-bordered mt-3'>
+                          	<tr><td colspan="2">RESULT</td></tr>
+                          	<tr><td>Message</td><td><?php echo $ttmsg; ?></td></tr>
+                          </table>
+                          <div align="center">
+                          	<a class="btn btn-danger mb-3" href="<?php echo $ttnowm; ?>">Unduh NoWm</a>
+                       	   <a class="btn btn-danger mb-3" href="<?php echo $ttwm; ?>">Unduh Wm</a>
+                      		<a class="btn btn-danger" href="<?php echo $ttaudio; ?>">Unduh Audio</a>
                         </div>
+                        <?php
+                        		}
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card mb-3">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvnKvvfk9-LNZakhSWSK5JR5JaEoVwxlOQQA&usqp=CAU" class="card-img-top" alt="Project One">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg1ywQKwErnfP_Pj1cjutWJ-OlBUR8rGjU5A&usqp=CAU" class="card-img-top" alt="Project One">
                         <div class="card-body">
                           <h5 class="card-title">Youtube MP3</h5>
                           <form action="" method="post">
                           	<input type="text" name="ytlink" placeholder="Masukan Url Video disini" class="form-control mb-3">
-                        	  <input type="button" name="ytsub" onclick="alert('Fitur ini masih terkunci!');" class="btn btn-danger" value='Download MP3'>
+                        	  <input type="submit" name="ytsub" class="btn btn-danger" value='Download MP3'>
                           </form>
                           <?php
                           	if(isset($_POST["ytsub"])){
@@ -128,15 +157,18 @@
                           			$ytsize = $ytdat["result"]["size_mp3"];
                           			$ytdow = $ytdat["result"]["mp3"];
                           ?>
-                          <table class='table table-bordered'>
+                          <table class='table table-bordered mt-3'>
                           	<tr><td colspan="2">RESULT</td></tr>
                           	<tr><td>Judul</td><td><?php echo $ytjudul; ?></td></tr>
                           	<tr><td>Ukuran MP3</td><td><?php echo $ytsize; ?></td></tr>
                           </table>
                           <div align="center">
                           	<a class="btn btn-danger" href="<?php echo $ytdow; ?>">Lanjut Unduh</a>
-                          </a>
                         </div>
+                        <?php
+                        		}
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
