@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>SanzkingMY</title>
     <!--CSS only-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
@@ -66,7 +66,7 @@
                     			<td class="bg-secondary text-light text-center">Perguruan tinggi</td><td class="bg-secondary text-light text-center">STIE MIFTAHUL HUDA SUBANG</td>
                     		</tr>
                     		<tr>
-                    			<td class="bg-secondary text-light text-center">Hobi</td><td class="bg-secondary text-light text-center">Rebahan sebetulnya :v</td>
+                    			<td class="bg-secondary text-light text-center">Hobi</td><td class="bg-secondary text-light text-center">Rebahan.</td>
                     		</tr>
                     		<tr>
                     			<td class="bg-secondary text-light text-center">Drama/Film favorit</td><td class="bg-secondary text-light text-center"><b>Vagabond for Drama</b> & <b>Avanger for Film</b></td>
@@ -74,6 +74,7 @@
                     		<tr>
                     			<td class="bg-secondary text-light text-center">Zodiak</td><td class="bg-secondary text-light text-center">Sagitarius</td>
                     		</tr>
+                    	</tbody>
                     </table>
                 </div>
             </div>
@@ -104,6 +105,40 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvnKvvfk9-LNZakhSWSK5JR5JaEoVwxlOQQA&usqp=CAU" class="card-img-top" alt="Project One">
+                        <div class="card-body">
+                          <h5 class="card-title">Youtube MP3</h5>
+                          <form action="" method="post">
+                          	<input type="text" name="ytlink" placeholder="Masukan Url Video disini" class="form-control mb-3">
+                        	  <input type="button" name="ytsub" onclick="alert('Fitur ini masih terkunci!');" class="btn btn-danger" value='Download MP3'>
+                          </form>
+                          <?php
+                          	if(isset($_POST["ytsub"])){
+                          		if(empty($_POST["ytlink"])){
+                          ?>
+                          <script>alert("Url video harus diisi!");</script>
+                          <?php
+                          		}else{
+                          			$ytlink = $_POST["ytlink"];
+                          			$ytget = file_get_contents("https://mirip-lolhuman.herokuapp.com/docs/download/ytmp3?url=$ytlink&apikey=Alphabot");
+                          			$ytdat = json_decode($ytget, true);
+                          			$ytjudul = $ytdat["result"]["title"];
+                          			$ytsize = $ytdat["result"]["size_mp3"];
+                          			$ytdow = $ytdat["result"]["mp3"];
+                          ?>
+                          <table class='table table-bordered'>
+                          	<tr><td colspan="2">RESULT</td></tr>
+                          	<tr><td>Judul</td><td><?php echo $ytjudul; ?></td></tr>
+                          	<tr><td>Ukuran MP3</td><td><?php echo $ytsize; ?></td></tr>
+                          </table>
+                          <div align="center">
+                          	<a class="btn btn-danger" href="<?php echo $ytdow; ?>">Lanjut Unduh</a>
+                          </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -127,7 +162,7 @@
                 		<input type="text" placeholder="Nama belakang" class="form-control mb-3">
                 		<input type="text" placeholder="Username IG" class="form-control mb-3">
                 		<input type="email" placeholder="Email" class="form-control mb-3">
-                		<textarea class="form-control mb-3"></textarea>
+                		<textarea class="form-control mb-3" placeholder="Message"></textarea>
                 		<input type="button" onclick="alert('Fitur ini masih dalam tahap perbaikan');" class="btn btn-danger" value="Kirim saran">
                 	</div>
                 </div>
